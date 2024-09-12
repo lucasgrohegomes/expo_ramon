@@ -1,37 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
-import {Picker} from '@react-native-picker/picker'
+import { View, Text, StyleSheet, Picker } from 'react-native';
 
 export default Seletor = () => {
-    const [ pokemon, setPokemon ] = useState('');
-    const [ lista_pokemons, setListaPokemons ] = useState([])
-
-    // const lista_pokemons = [
-    //     { nome: 'Pikachu', value: 'pikachu' },
-    //     { nome: 'Bulbasaur', value: 'bulbasaur'},
-    //     { nome: 'Charmander', value: 'charmander'},
-    //     { nome: 'Squirtle', value: 'squirtle'}
-    // ]
+    const [pokemon, setPokemon] = useState('');
+    const [listaPokemons, setListaPokemons] = useState([]);
+    const [listaTipos, setListaTipos] = useState([]);
+    const [tipoSelecionado, setTipoSelecionado] = useState('');
 
     useEffect(() => {
+        // Fetch tipos de Pokémon
+        fetch('https://pokeapi.co/api/v2/type')
+            .then(response => response.json())
+            .then(dados => setListaTipos(dados.results));
+        
+        // Fetch Pokémon com limite configurável
         fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
-        .then(response => response.json())
-        .then(dados => setListaPokemons(dados.results))
-    }, [])
-    console.log('fora')
+            .then(response => response.json())
+            .then(dados => setListaPokemons(dados.results));
+    }, []);
+
+    useEffect(() => {
+        if (tipoSelecionado) {
+            // Fetch Pokémon do tipo selecionado
+            fetch(`https://pokeapi.co/api/v2/type/${tipoSelecionado}`)
+                .then(response => response.json())
+                .then(dados => setListaPokemons(dados.pokemon.map(p => p.pokemon)));
+        } else {
+            // Re-fetch todos os Pokémon se nenhum tipo for selecionado
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
+                .then(response => response.json())
+                .then(dados => setListaPokemons(dados.results));
+        }
+    }, [tipoSelecionado]);
 
     return (
-    <View>
-        <Text>Selecione um Pokémon</Text>
-        <Picker 
-        selectedValue={pokemon}
-        onValueChange={(itemValue) => setPokemon(itemValue)}>
-            <Picker.Item label='selecione um Pokémon'/>
-            {lista_pokemons.map((item, index) => (
-                <Picker.Item key={index} label={item.name} value={item.url}/>
-            ))}
-            
-        </Picker>
-    </View>
-)
-}
+        <View style={styles.container}>
+            <Text style={styles.title}>Selecione um Tipo de Pokémon</Text>
+            <Picker
+                selectedValue={tipoSelecionado}
+                onValueChange={(itemValue) => setTipoSelecionado(itemValue)}
+                style={styles.picker}
+            >
+                <Picker.Item label='Selecione um Tipo' value='' />
+                {listaTipos.map((item, index) => (
+                    <Picker.Item key={index} label={item.name} value={item.name} />
+                ))}
+            </Picker>
+
+            <Text style={styles.title}>Selecione um Pokémon</Text>
+            <Picker
+                selectedValue={pokemon}
+                onValueChange={(itemValue) => setPokemon(itemValue)}
+                style={styles.picker}
+            >
+                <Picker.Item label='Selecione um Pokémon' value='' />
+                {listaPokemons.map((item, index) => (
+                    <Picker.Item key={index} label={item.name} value={item.url} />
+                ))}
+            </Picker>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+        backgroundColor: '#f9f9f9'
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 12,
+    },
+    picker: {
+        height: 50,
+        width: '100%',
+        marginVertical: 8,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        borderColor: '#ccc',
+        borderWidth: 1,
+    }
+});
