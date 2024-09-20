@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 
 export default function Viagens() {
-    // Estado para controlar a visibilidade das imagens de cada cidade
     const [imageVisibility, setImageVisibility] = useState({
         uruguaiana: false,
         santana: false,
         rivera: false,
     });
 
-    // Função para alternar a visibilidade da imagem da cidade clicada
     const handlePress = (city) => {
         setImageVisibility(prevState => ({
             ...prevState,
@@ -53,7 +51,7 @@ export default function Viagens() {
                 </Pressable>
                 {imageVisibility.santana && (
                     <Image
-                        source={{ uri: 'https://www.viagensecaminhos.com/wp-content/uploads/2014/03/santana-do-livramento-e-rivera-768x432.jpg' }} // Substitua pela URL da imagem de Sant'Ana do Livramento
+                        source={{ uri: 'https://www.viagensecaminhos.com/wp-content/uploads/2014/03/santana-do-livramento-e-rivera-768x432.jpg' }}
                         style={styles.image}
                     />
                 )}
@@ -70,7 +68,7 @@ export default function Viagens() {
                 </Pressable>
                 {imageVisibility.rivera && (
                     <Image
-                        source={{ uri: 'https://th.bing.com/th/id/OIP.yfLGOeLg5OtKwAMaMBBDXQHaFj?w=678&h=509&rs=1&pid=ImgDetMain' }} // Substitua pela URL da imagem de Rivera
+                        source={{ uri: 'https://th.bing.com/th/id/OIP.yfLGOeLg5OtKwAMaMBBDXQHaFj?w=678&h=509&rs=1&pid=ImgDetMain' }}
                         style={styles.image}
                     />
                 )}
@@ -101,19 +99,19 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     pressable: {
-        backgroundColor: '#007BFF', // Cor de fundo padrão
+        backgroundColor: '#007BFF',
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 5, // Sombra para Android
-        shadowColor: '#000', // Cor da sombra para iOS
-        shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
-        shadowOpacity: 0.3, // Opacidade da sombra
-        shadowRadius: 3, // Difusão da sombra
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
     },
     pressablePressed: {
-        backgroundColor: '#0056b3', // Cor de fundo quando pressionado
+        backgroundColor: '#0056b3',
     },
     pressableText: {
         color: 'white',
@@ -126,4 +124,3 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 });
-

@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 
-export default function Viagens() {
-    // Estado para controlar a visibilidade das imagens de cada cidade
+export default function Filmes() {
     const [imageVisibility, setImageVisibility] = useState({
-        uruguaiana: false,
-        santana: false,
-        rivera: false,
+        dora: false,
+        terminator: false,
+        kungfupanda: false,
     });
 
-    // Função para alternar a visibilidade da imagem da cidade clicada
-    const handlePress = (city) => {
+    const handlePress = (movie) => {
         setImageVisibility(prevState => ({
             ...prevState,
-            [city]: !prevState[city],
+            [movie]: !prevState[movie],
         }));
     };
 
@@ -21,56 +19,56 @@ export default function Viagens() {
         <View style={styles.mainContainer}>
             <View style={styles.header}>
                 <Text style={styles.title}>
-                    Viagens Luquisticas:
+                    Filmes Luquisticos:
                 </Text>
             </View>
             <View style={styles.container}>
                 <Pressable
-                    onPress={() => handlePress('uruguaiana')}
+                    onPress={() => handlePress('dora')}
                     style={({ pressed }) => [
                         styles.pressable,
                         pressed && styles.pressablePressed
                     ]}
                 >
-                    <Text style={styles.pressableText}>Uruguaiana</Text>
+                    <Text style={styles.pressableText}>Dora e a Cidade Perdida</Text>
                 </Pressable>
-                {imageVisibility.uruguaiana && (
+                {imageVisibility.dora && (
                     <Image
-                        source={{ uri: 'https://agorars.com/wp-content/uploads/2022/09/ponte-internacional-uruguaiana.jpg' }}
+                        source={{ uri: 'https://is2-ssl.mzstatic.com/image/thumb/Video113/v4/fb/00/b0/fb00b008-5481-bc54-8e2a-dbc19d05620f/pr_source.lsr/1200x675.jpg' }}
                         style={styles.image}
                     />
                 )}
             </View>
             <View style={styles.container}>
                 <Pressable
-                    onPress={() => handlePress('santana')}
+                    onPress={() => handlePress('terminator')}
                     style={({ pressed }) => [
                         styles.pressable,
                         pressed && styles.pressablePressed
                     ]}
                 >
-                    <Text style={styles.pressableText}>Sant'Ana do Livramento</Text>
+                    <Text style={styles.pressableText}>O Exterminador do Futuro</Text>
                 </Pressable>
-                {imageVisibility.santana && (
+                {imageVisibility.terminator && (
                     <Image
-                        source={{ uri: 'https://www.viagensecaminhos.com/wp-content/uploads/2014/03/santana-do-livramento-e-rivera-768x432.jpg' }} // Substitua pela URL da imagem de Sant'Ana do Livramento
+                        source={{ uri: 'https://media.gazetadopovo.com.br/2015/07/9b942c1c4c7c40620414c0a7bbff572d-gpLarge.jpg' }}
                         style={styles.image}
                     />
                 )}
             </View>
             <View style={styles.container}>
                 <Pressable
-                    onPress={() => handlePress('rivera')}
+                    onPress={() => handlePress('kungfupanda')}
                     style={({ pressed }) => [
                         styles.pressable,
                         pressed && styles.pressablePressed
                     ]}
                 >
-                    <Text style={styles.pressableText}>Rivera</Text>
+                    <Text style={styles.pressableText}>Kung Fu Panda 4</Text>
                 </Pressable>
-                {imageVisibility.rivera && (
+                {imageVisibility.kungfupanda && (
                     <Image
-                        source={{ uri: 'https://th.bing.com/th/id/OIP.yfLGOeLg5OtKwAMaMBBDXQHaFj?w=678&h=509&rs=1&pid=ImgDetMain' }} // Substitua pela URL da imagem de Rivera
+                        source={{ uri: 'https://recreio.com.br/media/uploads/2024/03/kung-fu-panda-4-capa.jpg' }}
                         style={styles.image}
                     />
                 )}
@@ -91,7 +89,7 @@ const styles = StyleSheet.create({
         padding: 40,
     },
     header: {
-        backgroundColor: 'gray',
+        backgroundColor: 'black',
         padding: 30,
     },
     title: {
@@ -101,19 +99,19 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     pressable: {
-        backgroundColor: '#007BFF', // Cor de fundo padrão
+        backgroundColor: '#007BFF',
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 5, // Sombra para Android
-        shadowColor: '#000', // Cor da sombra para iOS
-        shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
-        shadowOpacity: 0.3, // Opacidade da sombra
-        shadowRadius: 3, // Difusão da sombra
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
     },
     pressablePressed: {
-        backgroundColor: '#0056b3', // Cor de fundo quando pressionado
+        backgroundColor: '#0056b3',
     },
     pressableText: {
         color: 'white',
