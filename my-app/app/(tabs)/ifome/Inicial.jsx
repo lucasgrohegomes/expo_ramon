@@ -1,24 +1,37 @@
-// App.js
+// Inicial.jsx
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LancheProvider } from './tabs/ifome/LancheContext'; // Ajuste conforme necessário
-import Carrinho from './tabs/ifome/Carrinho';
-import Inicial from './tabs/ifome/Inicial';
+import { View, Text, Button, FlatList } from 'react-native';
+import { useLancheContext } from './LancheContext';
 
-const Stack = createNativeStackNavigator();
+const snacks = [
+    { id: '1', name: 'Hambúrguer', price: 10 },
+    { id: '2', name: 'Pizza', price: 15 },
+    { id: '3', name: 'Batata Frita', price: 5 },
+];
 
-const App = () => {
+const Inicial = ({ navigation }) => {
+    const { addToCart } = useLancheContext();
+
+    const handleAddToCart = (snack) => {
+        addToCart(snack);
+    };
+
     return (
-        <LancheProvider>
-            <NavigationContainer>
-                <Stack.Navigator initialRouteName="Inicial">
-                    <Stack.Screen name="Inicial" component={Inicial} />
-                    <Stack.Screen name="Carrinho" component={Carrinho} />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </LancheProvider>
+        <View>
+            <Text>Selecione seu Lanche</Text>
+            <FlatList
+                data={snacks}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <View>
+                        <Text>{item.name} - R$ {item.price}</Text>
+                        <Button title="Adicionar ao Carrinho" onPress={() => handleAddToCart(item)} />
+                    </View>
+                )}
+            />
+            <Button title="Ir para o Carrinho" onPress={() => navigation.navigate('Carrinho')} />
+        </View>
     );
 };
 
-export default App;
+export default Inicial;

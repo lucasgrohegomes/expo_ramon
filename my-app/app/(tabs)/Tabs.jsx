@@ -40,6 +40,11 @@ export default function Tabs() {
                     <Text style={styles.linkText}>Splashscreen</Text>
                 </Pressable>
             </View>
+            <View style={styles.container}>
+                <Pressable onPress={() => router.push('(tabs)/ifome/Inicial')}>
+                    <Text style={styles.linkText}>Ifome</Text>
+                </Pressable>
+            </View>
         </View>
     );
 }

@@ -1,22 +1,19 @@
 // _layout.jsx
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { LancheProvider } from './tabs/ifome/LancheContext';
-import Carrinho from './tabs/ifome/Carrinho';
-import Inicial from './tabs/ifome/Inicial';
+import { LancheProvider } from './LancheContext';
+import { createStackNavigator } from '@react-navigation/stack';
+import Inicial from './Inicial';
+import Carrinho from './Carrinho';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const Layout = () => {
     return (
         <LancheProvider>
-            <NavigationContainer>
                 <Stack.Navigator initialRouteName="Inicial">
                     <Stack.Screen name="Inicial" component={Inicial} />
                     <Stack.Screen name="Carrinho" component={Carrinho} />
                 </Stack.Navigator>
-            </NavigationContainer>
         </LancheProvider>
     );
 };

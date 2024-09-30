@@ -1,22 +1,26 @@
-// LancheContext.js
-import React, { createContext, useState } from 'react';
+// LancheContext.jsx
+import React, { createContext, useContext, useState } from 'react';
 
 const LancheContext = createContext();
 
 export const LancheProvider = ({ children }) => {
-    const [carrinho, setCarrinho] = useState([]);
+    const [cart, setCart] = useState([]);
 
-    const adicionarAoCarrinho = (lanche) => {
-        setCarrinho((prev) => [...prev, lanche]);
+    const addToCart = (item) => {
+        setCart((prevCart) => [...prevCart, item]);
+    };
+
+    const clearCart = () => {
+        setCart([]);
     };
 
     return (
-        <LancheContext.Provider value={{ carrinho, adicionarAoCarrinho }}>
+        <LancheContext.Provider value={{ cart, addToCart, clearCart }}>
             {children}
         </LancheContext.Provider>
     );
 };
 
-export const useLanche = () => {
-    return React.useContext(LancheContext);
+export const useLancheContext = () => {
+    return useContext(LancheContext);
 };

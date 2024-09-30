@@ -1,25 +1,26 @@
-// Carrinho.js
+// Carrinho.jsx
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { useLanche } from './LancheContext'; // Corrigido para './LancheContext'
+import { View, Text, FlatList, Button } from 'react-native';
+import { useLancheContext } from './LancheContext';
 
 const Carrinho = () => {
-    const { carrinho } = useLanche();
+    const { cart, clearCart } = useLancheContext();
 
     return (
         <View>
             <Text>Carrinho de Compras</Text>
-            {carrinho.length === 0 ? (
-                <Text>Seu carrinho está vazio!</Text>
+            {cart.length === 0 ? (
+                <Text>O carrinho está vazio</Text>
             ) : (
                 <FlatList
-                    data={carrinho}
+                    data={cart}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <Text>{item.nome} - R$ {item.preco}</Text>
+                        <Text>{item.name} - R$ {item.price}</Text>
                     )}
                 />
             )}
+            <Button title="Limpar Carrinho" onPress={clearCart} />
         </View>
     );
 };
