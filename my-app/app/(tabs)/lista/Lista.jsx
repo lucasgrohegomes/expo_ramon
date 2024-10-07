@@ -9,6 +9,8 @@ const Item = ({ title, feito }) => (
   </View>
 );
 
+
+
 export default function listatarefa(){
       const TAREFAS = [
       {id: '1', title: 'topjpojptjlptoj', feito: false},
