@@ -1,11 +1,13 @@
 import {useState, useRef} from 'react'
 import {View, StyleSheet, Text, Image, Button } from 'react-native'
 import {CameraView, useCameraPermissions} from 'expo-camera'
+import * as MediaLibrary from 'expo-media-library';
 
 export default function Camera(){
     const [permissao, pedirPermissao] = useCameraPermissions()
     const [foto, setFoto] = useState(null)
     const cameraRef = useRef(null)
+    const [ladoCamera, setLadoCamera] = useState('back')
 
     if(!permissao){
         return <View></View>
@@ -22,6 +24,10 @@ export default function Camera(){
             </View>
         )
     }
+    const inverterLadoCamera = () => {
+        setLadoCamera(ladoCamera == 'back' ? 'front' : 'back')
+    }
+
     const tirarFoto = async () => {
         const foto = await cameraRef.current?.takePictureAsync({
             qualiy: 0.5,
@@ -30,16 +36,33 @@ export default function Camera(){
         setFoto(foto)
         console.log(foto)
     }
-
+    const salvarFoto = async () => {
+        MediaLibrary.saveToLibraryAsync(foto.uri)
+        if(!permissaoSalvar.status == 'granted'){
+            await pedirPermissaoSalvar
+        }
+    }
     return(
-        <CameraView style={styles.camera} facing={'back'} ref={cameraRef}>
+        <View style={styles.container}>
+            {foto ?
+                <View>
+                    <Button title='descartar imagem' onPress={()=> setFoto(null)}></Button>
+                    <Button title='salvar foto' onPress={salvarFoto}/>
+                    <Image style={styles.image} source={{uri: foto.uri}} />
+                </View>
+                :
+                <CameraView style={styles.camera} facing={ladoCamera} ref={cameraRef}/>
+    
+            }
+    
+        <CameraView style={styles.camera} facing={ladoCamera} ref={cameraRef}>
             <View style={styles.buttonContainer}>
-                <Button
-                title= 'tirar-foto'
-                onPress={tirarFoto}
-                />
+                <Button title= 'tirar-foto' onPress={tirarFoto}/>
+                
+                <Button title= 'inverter-lado' onPress={inverterLadoCamera}/>
             </View>
         </CameraView>
+        </View>
     )
 
 }
@@ -58,5 +81,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         flex:1
+    },
+    image:{
+        width:'100%',
+        height:'100%'
     }
 })
