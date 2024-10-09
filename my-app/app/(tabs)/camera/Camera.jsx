@@ -65,9 +65,9 @@ export default function Camera(){
     }
 
     return(
-        <SafeAreaView style={styles.container}>
-            {foto ?
-                <>
+        <SafeAreaView style={styles.container}> 
+            {
+            foto ? <>
                 <View style={styles.container}>
                     <Image style={styles.image} source={{uri: foto.uri}} />
                 </View>
@@ -77,23 +77,21 @@ export default function Camera(){
                         <Pressable title='descartar imagem' onPress={()=> setFoto(null)}>
                             <Ionicons name="close" size={40} color="black" /></Pressable>
                 </View>
-                </>
-                    
-                 : <></>}
+                </> : <></>
+            }
+            <CameraView style={styles.camera} facing={ladoCamera} ref={cameraRef}
+                barcodeScannerSettings={{
+                    barcodeTypes: ["qr"],
+                }} onBarcodeScanned={(url) => EntrarLinkQR(url)}>
 
-        <CameraView style={styles.camera} facing={ladoCamera} ref={cameraRef}
-            barcodeScannerSettings={{
-                barcodeTypes: ["qr"],
-            }} onBarcodeScanned={(url) => EntrarLinkQR(url)}>
-
-            <View style={styles.buttoncontainer}>
-                <Pressable title= 'tirar-foto' onPress={tirarFoto}>
-                    <Ionicons name="camera" size={40} color="white" /></Pressable>
-                <Pressable title= 'inverter-lado' onPress={inverterLadoCamera}>
-                    <Ionicons name="camera-reverse-sharp" size={40} color="white" /></Pressable>
-            </View>
+                <View style={styles.buttoncontainer}>
+                    <Pressable title= 'tirar-foto' onPress={tirarFoto}>
+                        <Ionicons name="camera" size={40} color="white" /></Pressable>
+                    <Pressable title= 'inverter-lado' onPress={inverterLadoCamera}>
+                        <Ionicons name="camera-reverse-sharp" size={40} color="white" /></Pressable>
+                </View>
             
-        </CameraView>
+            </CameraView>
         </SafeAreaView>
     )
 
