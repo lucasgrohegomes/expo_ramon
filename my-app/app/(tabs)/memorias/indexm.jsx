@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, Pressable } from 'react-native';
+import { View, Text, FlatList, Image, Pressable, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function indexm ({ onAdicionar }) {
@@ -23,14 +23,23 @@ export default function indexm ({ onAdicionar }) {
           <View>
             <Text>{item.titulo}</Text>
             <Text>{item.descricao}</Text>
-            {item.imagem && <Image source={{ uri: item.imagem }}/>}
+            {item.imagem && <Image source={{ uri: item.imagem }} style={styles.image} />}
           </View>
         )}
       />
-      <Pressable onPress={onAdicionar}>
-        <Text>Adicionar Nova Memória</Text>
+      <Pressable onPress={onAdicionar} style={styles.button}>
+        <Text style={styles.buttonText}>Adicionar Nova Memória</Text>
       </Pressable>
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+
+  image: {
+    width: 200,
+    height: 200,
+    marginVertical: 10,
+    borderRadius: 5,
+  },
+});

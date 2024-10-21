@@ -36,7 +36,7 @@ const Adiciona = ({ onVoltar }) => {
         onChangeText={setDescricao}
       />
       <Button title="Selecionar Imagem" onPress={selecionarImagem} />
-      {imagem && <Image source={{ uri: imagem }}/>}
+      {imagem && <Image source={{ uri: imagem }} />}
       <Pressable onPress={adicionarMemoria}>
         <Text>Adicionar Memória</Text>
       </Pressable>

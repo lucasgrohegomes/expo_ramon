@@ -45,31 +45,13 @@ export default function Tabs() {
                     <Text style={styles.linkText}>Ifome</Text>
                 </Pressable>
             </View>
+            <View style={styles.container}>
+                <Pressable onPress={() => router.push('(tabs)/memorias/App')}>
+                    <Text style={styles.linkText}>Memorias</Text>
+                </Pressable>
+            </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 25, // Corrigido para número
-        gap: 25, // Corrigido para número
-        backgroundColor: '#f5f5f5',
-    },
-    header: {
-        backgroundColor: 'gray',
-        padding: 30, // Corrigido para número
-    },
-    title: {
-        fontWeight: 'bold', // Corrigido para 'bold'
-        fontSize: 40,
-        fontFamily: 'helvetica-neue',
-        color: 'white',
-    },
-    linkText: {
-        fontSize: 20,
-        color: 'blue',
-    },
-});
+

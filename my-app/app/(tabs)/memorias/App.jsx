@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native';
-import Adiciona from './NovaMemoria';
-import Index from './GaleriaMemorias';
+import Adiciona from './Adiciona';
+import Index from './indexm';
 
 const App = () => {
   const [telaAtual, setTelaAtual] = useState('indexm');
@@ -10,7 +10,7 @@ const App = () => {
   const voltarParaIndex = () => setTelaAtual('indexm');
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView>
       {telaAtual === 'indexm' ? (
         <Index onAdicionar={irParaAdicionar} />
       ) : (
